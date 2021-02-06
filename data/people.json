@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Person 1",
+        "ispresent": true
+    },
+    {
+        "name": "Person 2",
+        "ispresent": true
+    },
+    {
+        "name": "Person 3",
+        "ispresent": true
+    },
+    {
+        "name": "Person 4",
+        "ispresent": true
+    },
+    {
+        "name": "Person 5",
+        "ispresent": true
+    },
+    {
+        "name": "Person 6",
+        "ispresent": true
+    }
+]

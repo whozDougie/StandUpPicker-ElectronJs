@@ -1,9 +1,7 @@
-# StandUpPicker-ElectronJs
-Simple Stand Up Picker for cross platform (with ElectronJs)
+Simple Stand Up Picker
 
-This is a simple stand up picker with character. Made to try out ElectronJS. If you like, please feel free to buy me a coffee or beer!
-
-Current version: V1.0.0 9:58 PM 6/02/2021
+V1.0.0 9:58 PM 6/02/2021
+WhozDougie
 
 How to use:
 Configure app by changing people.json.
@@ -45,19 +43,3 @@ Also you can change the default window dimensions by chaning setting.json:
         "height": 150
     }
 }
-
-
-Implemented with:
-ElectronJS
-Pure Javascript 
-
-
-Before running make sure prerequisites are setup as per: https://www.electronjs.org/docs/tutorial/quick-start#package-and-distribute-the-application
-
-To run, once you get the code, follow
-npm start
-
-
-Colors inspired by MS Teams.
-
-Supports dark and light modes in OS. Tested in Windows 10. 

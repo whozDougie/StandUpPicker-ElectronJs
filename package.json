@@ -1,0 +1,26 @@
+{
+  "name": "standuppicker-electronjs",
+  "version": "1.0.0",
+  "author": "whozDougie",
+  "description": "Simple Stand Up Picker for cross platform (with ElectronJs)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whozDougie/StandUpPicker-ElectronJs.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whozDougie/StandUpPicker-ElectronJs/issues"
+  },
+  "homepage": "https://github.com/whozDougie/StandUpPicker-ElectronJs#readme",
+  "devDependencies": {
+    "electron": "^11.2.2"
+  },
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.6"
+  }
+}

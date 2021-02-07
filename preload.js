@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
         icon: url.format(path.join(__dirname, '/images', '/icon.png')),
         maximizable: false,
         shadow: true,
-        titleHorizontalAlignment: 'right',
+        titleHorizontalAlignment: 'left',
         // menuPosition: 'left',
         menu: null,
         unfocusEffect: false,

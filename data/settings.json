@@ -2,5 +2,9 @@
     "window": {
         "width": 410,
         "height": 150
+    },
+    "editor": {
+        "width": 600,
+        "height": 600
     }
 }

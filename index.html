@@ -7,32 +7,23 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
     <link rel="stylesheet" href="app.css">
     <script type="text/javascript" src="app.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="app">
-    <script>
-        const customTitlebar = require('custom-electron-titlebar');
-
-        new customTitlebar.Titlebar({
-            backgroundColor: customTitlebar.Color.fromHex('#444');
-        });
-        // const { show } = require('custom-electron-titlebar/lib/common/dom');
-        // const customTitlebar = require('custom-electron-titlebar');
-
-        // var appTitleBar = new customTitlebar.Titlebar({
-        //     backgroundColor: customTitlebar.Color.fromHex('#444'),
-        //     shadow: true,
-        //     //icon: ''
-        // });
-
-        // appTitleBar.updateTitle('Simple Standup Picker');
-    </script>
     <div class="bg">
-        <div class="stage"><span id="progress"></span> <b><span id="current"></span></b></div>
+        <div class="stage"><span id="progress"></span> <b><span id="current"></span></b>
+            <div id="editor" class="settings"><img class="settingsIcon" src="./images/settings.svg"></div>
+        </div>
         <!-- <div class="info">Elapsed: <span id="mins">0</span> m <span id="seconds">00</span> s</div> -->
         <div class="info">Elapsed: <span id="mins">0</span> m <span id="seconds">00</span> s | Overall: <span
                 id="tmins">0</span> m <span id="tseconds">00</span> s</div>
         <div class="upnext"><span id="next"></span></div>
+
         <div class="btnHolder">
             <div class="button6 nextBtn" id="button-next">Next</div>
             <div class="space">&nbsp;</div>
@@ -41,6 +32,7 @@
             <div class="button6 restartBtn" id="button-restart" style="display:none;">Restart</div>
         </div>
     </div>
+
 
     <script>init();</script>
 </body>

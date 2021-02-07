@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editor People List</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
+    <link rel="stylesheet" href="../app.css">
+    <script type="text/javascript" src="editor.js"></script>
+</head>
+
+<body class="app app-editor">
+    <div class="bg-editor">
+        <div class="stage">
+            <div class="btnHolder-editor">
+                <span class="heading">Stand up list</span>
+                <div class="button6 saveBtn right" id="button-save">Save</div>
+                <div class="space">&nbsp;</div>
+                <div class="button6 cancelBtn right" id="button-cancel">Cancel</div>
+            </div>
+        </div>
+        <div class="inputHolder">
+            <input type="text" id="newName" class="left"
+                    placeholder="Persons name" />
+            <div class="button6 addBtn smallBtn left" id="button-add" title="Press enter in the input box to add...">Add</div>
+        </div>
+        <table class="styled-table left">
+            <thead>
+                <th>Actions</th>
+                <th>#</th>
+                <th>Name</th>
+                <th>Include?</th>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>init();</script>
+</body>
+
+</html>

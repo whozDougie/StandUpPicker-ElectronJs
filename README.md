@@ -12,27 +12,27 @@ Json is in the following format:
 [
     {
         "name": "Person 1",
-        "ispresent": true
+        "include": true
     },
     {
         "name": "Person 2",
-        "ispresent": true
+        "include": true
     },
     {
         "name": "Person 3",
-        "ispresent": true
+        "include": true
     },
     {
         "name": "Person 4",
-        "ispresent": true
+        "include": true
     },
     {
         "name": "Person 5",
-        "ispresent": true
+        "include": true
     },
     {
         "name": "Person 6",
-        "ispresent": true
+        "include": true
     }
 ]
 ```
@@ -65,6 +65,14 @@ npm install
 3. To run, once you get the code, follow
 ```
 npm start
+```
+
+## Packaging and Deployment
+Run these in the folder (if the steps in the electronjs.org documentation above doesn't work):
+```
+npm add --dev @electron-forge/cli
+npx electron-forge import
+npm run make
 ```
 
 # Styling info

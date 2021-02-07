@@ -5,7 +5,7 @@ const url = require('url');
 
 const customTitlebar = require('custom-electron-titlebar');
 //const customTitlebar = require('..'); // Delete this line and uncomment top line
-
+//https://github.com/AlexTorresSk/custom-electron-titlebar
 window.addEventListener('DOMContentLoaded', () => {
     var titlebar = new customTitlebar.Titlebar({
         backgroundColor: customTitlebar.Color.fromHex('#3f487e'),
@@ -13,7 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
         maximizable: false,
         shadow: true,
         titleHorizontalAlignment: 'right',
-        menuPosition: 'left',
+        // menuPosition: 'left',
+        menu: null,
         unfocusEffect: false,
     });
 

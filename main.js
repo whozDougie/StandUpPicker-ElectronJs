@@ -1,71 +1,5 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const isMac = process.platform === 'darwin'
-//https://www.electronjs.org/docs/api/menu
-const template = [
-  // { role: 'appMenu' }
-  ...(isMac ? [{
-    label: app.name,
-    submenu: [
-      { role: 'about' },
-      { type: 'separator' },
-      { role: 'services' },
-      { type: 'separator' },
-      { role: 'hide' },
-      { role: 'hideothers' },
-      { role: 'unhide' },
-      { type: 'separator' },
-      { role: 'quit' }
-    ]
-  }] : []),
-  // { role: 'fileMenu' }
-  {
-    label: 'File',
-    submenu: [
-      isMac ? { role: 'close' } : { role: 'quit' }
-      {
-        label: 'Help',
-        click: async () => {
-          const { shell } = require('electron')
-          await shell.openItem('/help/readme.txt')
-        }
-      }
-    ]
-  },
-  {
-    label: 'View',
-    submenu: [
-      // { role: 'reload' },
-      // { role: 'forceReload' },
-      // { role: 'toggleDevTools' },
-      // { type: 'separator' },
-      { role: 'resetZoom' },
-      { role: 'zoomIn' },
-      { role: 'zoomOut' },
-      // { type: 'separator' },
-      // { role: 'togglefullscreen' }
-    ]
-  },
-  // { role: 'windowMenu' }
-  // {
-  //   label: 'Window',
-  //   submenu: [
-  //     { role: 'minimize' },
-  //     { role: 'zoom' },
-  //     ...(isMac ? [
-  //       { type: 'separator' },
-  //       { role: 'front' },
-  //       { type: 'separator' },
-  //       { role: 'window' }
-  //     ] : [
-  //       { role: 'close' }
-  //     ])
-  //   ]
-  // },
-]
-
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
 
 let mainWindow;
 
@@ -91,7 +25,8 @@ function createWindow() {
     frame: false
   })
 
-  //win.removeMenu();
+  
+  mainWindow.removeMenu();
   mainWindow.loadFile('index.html');
   mainWindow.setAlwaysOnTop(true, 1);
   mainWindow.on('closed', function () {

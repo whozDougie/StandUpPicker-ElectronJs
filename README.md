@@ -5,10 +5,10 @@ This is a simple stand up picker with character. Made to try out ElectronJS. If 
 
 Current version: V1.0.0 9:58 PM 6/02/2021
 
-# How to use
+## How to use
 Configure app by changing people.json.
 Json is in the following format:
-
+```
 [
     {
         "name": "Person 1",
@@ -35,33 +35,46 @@ Json is in the following format:
         "ispresent": true
     }
 ]
-
+```
 Note: There is no validation for this json so make sure it is well formed.
 
 Also you can change the default window dimensions by chaning settings.json:
+```
 {
     "window": {
         "width": 410,
         "height": 150
     }
 }
+```
 
-
-# Implemented with:
+## Implemented with:
 ElectronJS and Pure Javascript 
 
-# Getting the project going
+## Getting the project going
 Before running make sure prerequisites are setup as per: https://www.electronjs.org/docs/tutorial/quick-start#package-and-distribute-the-application
-You will need node, and npm installed.
-npm install in the solution folder to get this going.
 
-To run, once you get the code, follow
+### Steps:
+1. You will need node, and npm installed.
+
+2. In the solution folder run this initially for the first time:
+```
+npm install 
+```
+
+3. To run, once you get the code, follow
+```
 npm start
+```
 
 # Styling info
 Colors inspired by MS Teams.
 
-Supports dark and light modes in OS. This is done using @media (prefers-color-scheme: dark) and @media (prefers-color-scheme: light) 
+Supports dark and light modes in OS. This is done using:
+```
+@media (prefers-color-scheme: dark) 
+@media (prefers-color-scheme: light) 
+```
 
 # Supported Platforms
 Tested in Windows 10. 
@@ -70,4 +83,4 @@ Pending test on MacOS
 Need help testing on Linux releases
 
 # Future plans?
-Perhaps add a simple interface to update the people list and settings? 
+Add a simple interface to update the people list and settings? 

@@ -273,7 +273,7 @@ function init() {
         });
 
         win.removeMenu();
-        win.loadFile('editor.html');
+        win.loadFile('./editor/editor.html');
         win.setAlwaysOnTop(true, 1);
         win.on('closed', function () {
             // Dereference the window object, usually you would store windows

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -21,10 +21,10 @@ function createWindow() {
       enableRemoteModule: true,
       nodeIntegration: true,
     },
-    titleBarStyle: "hidden",
-    frame: false
-  })
-
+    icon: __dirname + 'icon.ico',
+    titleBarStyle: 'hidden',
+    frame: false,
+  });
   
   mainWindow.removeMenu();
   mainWindow.loadFile('index.html');

@@ -21,6 +21,7 @@ function createWindow() {
       enableRemoteModule: true,
       nodeIntegration: true,
     },
+    icon: __dirname + 'icon.ico',
     titleBarStyle: 'hidden',
     frame: false,
   });

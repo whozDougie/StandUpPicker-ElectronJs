@@ -3,11 +3,12 @@ Simple Stand Up Picker for cross platform (with ElectronJs) - MacOS pending test
 
 This is a simple stand up picker with character. Made to try out ElectronJS. If you like, please feel free to buy me a coffee or beer!
 
-Current version: V1.0.0 9:58 PM 6/02/2021
+Current version: V1.1.0 9:40 PM 27/02/2021
 
 ## How to use
-Configure app by changing people.json.
-Json is in the following format:
+New: Configure list of people by changing people.json in the user data folder OR via the cogwheel icon to get to the people editor.
+
+Behind the scenes, list of people are stored in json in the following format:
 ```
 [
     {
@@ -38,7 +39,7 @@ Json is in the following format:
 ```
 Note: There is no validation for this json so make sure it is well formed.
 
-Also you can change the default window dimensions by chaning settings.json:
+Also you can change the default window dimensions by chaning settings.json - this will exist in the user data folder:
 ```
 {
     "window": {
@@ -47,6 +48,11 @@ Also you can change the default window dimensions by chaning settings.json:
     }
 }
 ```
+
+The user data folder is the following paths appended with a folder named "Simple Stand Up Picker":
+%APPDATA% on Windows
+$XDG_CONFIG_HOME or ~/.config on Linux
+~/Library/Application Support on macOS
 
 ## Implemented with:
 ElectronJS and Pure Javascript 
@@ -91,4 +97,6 @@ Pending test on MacOS
 Need help testing on Linux releases
 
 # Future plans?
-Add a simple interface to update the people list and settings? 
+Make the packages built much smaller. 
+Auto play.
+Themes?

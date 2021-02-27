@@ -6,6 +6,9 @@ const isWin = process.platform === "win32";
 
 function init() {
     //people model
+    let pplPath = path.join(electron.remote.app.getPath('userData'), 'people.json');
+    let settingsPath = path.join(electron.remote.app.getPath('userData'), 'settings.json');
+    
     var ppl = {
         currentPerson: "",
         currentTurn: 0,
@@ -73,7 +76,7 @@ function init() {
     //initi logic
     function loadData() {
         try {
-            var alldata = require('./data/people.json');
+            var alldata = require(pplPath);
             ppl.people = Object.values(Object.fromEntries(
                 Object.entries(alldata)
                 .filter(([ key, val ]) => val.include !== false)
@@ -256,7 +259,7 @@ function init() {
     });
 
     function createBrowserWindow() {
-        var settings = require('./data/settings.json');
+        var settings = require(settingsPath);
         const remote = require('electron').remote;
         const BrowserWindow = remote.BrowserWindow;
         const win = new BrowserWindow({

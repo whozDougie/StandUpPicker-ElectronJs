@@ -1,15 +1,42 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
+const fs = require('fs')
 
 let mainWindow;
-
+let defaultSettings = require('./data/settings.json');
+let defaultPpl = require('./data/people.json');
 function createWindow() {
   var settings = {};
+  var ppl = [];
   try {
-    settings = require('./data/settings.json');
-    console.log(settings);
+    let configPath = path.join(app.getPath('userData'), 'settings.json');
+    console.log('Loading config from: ' + configPath);
+    if (!fileExists(configPath)) {
+      //create a default one.
+      settings = defaultSettings;
+      fs.writeFile(
+        configPath, 
+        JSON.stringify(settings), 
+        function(err) { if (err) console.error(err); }
+      );
+    } else {
+      settings = require(configPath);
+    }
+    var pplPath = path.join(app.getPath('userData'), 'people.json');
+    console.log('Loading people from:' + pplPath);
+    if (!fileExists(pplPath)) {
+      //create a default one.
+      ppl = defaultPpl;
+      fs.writeFile(
+        pplPath, 
+        JSON.stringify(ppl), 
+        function(err) { if (err) console.error(err); }
+      );
+    }
+
   } catch (err) {
     // handle your file not found (or other error) here
+    console.log(err);
   }
 
   mainWindow = new BrowserWindow({
@@ -25,7 +52,7 @@ function createWindow() {
     titleBarStyle: 'hidden',
     frame: false,
   });
-  
+
   mainWindow.removeMenu();
   mainWindow.loadFile('index.html');
   mainWindow.setAlwaysOnTop(true, 1);
@@ -35,6 +62,18 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   });
+}
+
+function fileExists(path) {
+  let r = false;
+  try {
+    if (fs.existsSync(path)) {
+      return true;
+    }
+  } catch (err) {
+    console.error(err)
+  }
+  return r;
 }
 
 app.whenReady().then(createWindow)
@@ -50,3 +89,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
+

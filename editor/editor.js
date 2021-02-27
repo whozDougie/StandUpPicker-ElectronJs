@@ -2,10 +2,11 @@ const electron = require('electron');
 const path = require('path');
 var fs = require("fs");
 
+
 function init() {
+    let pplPath = path.join(electron.remote.app.getPath('userData'), 'people.json');
     var data;
     var total = 0;
-
     var buttonCancel = _elem('button-cancel');
     var buttonSave = _elem('button-save');
     var buttonAdd = _elem('button-add');
@@ -49,19 +50,19 @@ function init() {
             alert('Saved Successfully\nNote: Restart this app for changes to take effect.');
         }
         catch (e) {
-            alert('Failed to saved: ' + e);
+            alert('Failed to save: ' + e);
         }
     };
 
-    inputNewName.addEventListener("keyup", function(event) {
+    inputNewName.addEventListener("keyup", function (event) {
         // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
-          // Cancel the default action, if needed
-          event.preventDefault();
-          // Trigger the button element with a click
-          buttonAdd.click();
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            buttonAdd.click();
         }
-      });
+    });
 
     function addnewrow(name, isIncluded = true) {
         try {
@@ -90,27 +91,43 @@ function init() {
         window.close();
     }
 
+    
     function load() {
+
         data = [];
-        data = require('../data/people.json');
-        clearallrows();
-        total = 0;
-        data.forEach(function (d) {
-            total++;
-            addnewrow(d.name, d.include);
-        });
+        try {           
+            console.log('Getting people from: '+ pplPath);
+            data = require(pplPath);
+            clearallrows();
+            total = 0;
+            data.forEach(function (d) {
+                total++;
+                addnewrow(d.name, d.include);
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     function savedata(d) {
-        write_file(path.join(__dirname, '../data/people.json'), d);
+        write_file(pplPath, d);
     }
-
-    // function read_file(path){
-    //     return fs.readFileSync(path, 'utf8');
-    // }
 
     function write_file(path, output) {
         fs.writeFileSync(path, output);
+    }
+
+    function fileExists(path) {
+        let r = false;
+        try {
+            if (fs.existsSync(path)) {
+                return true;
+            }
+        } catch (err) {
+            console.error(err)
+        }
+        return r;
     }
 
     load();
@@ -122,3 +139,5 @@ function deleterow(name) {
 function _elem(name) {
     return document.getElementById(name);
 }
+
+

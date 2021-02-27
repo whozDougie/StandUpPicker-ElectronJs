@@ -1,7 +1,7 @@
 {
   "name": "standuppicker-electronjs",
   "productName": "Simple stand up picker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "whozDougie",
   "description": "Simple Stand Up Picker for cross platform (with ElectronJs)",
   "main": "main.js",

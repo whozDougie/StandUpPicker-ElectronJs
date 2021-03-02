@@ -100,3 +100,9 @@ Need help testing on Linux releases
 Make the packages built much smaller. 
 Auto play.
 Themes?
+
+
+# Like it? 
+If you like this, feel free to <a href="https://www.paypal.com/donate?business=M395WAJHGLHCN&item_name=Simple+Stand+up+picker&currency_code=AUD">get me a coffee or beer for my efforts on <b>PayPal</b></a>
+
+

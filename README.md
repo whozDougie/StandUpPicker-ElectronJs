@@ -43,7 +43,7 @@ Also you can change the default window dimensions by chaning settings.json - thi
 ```
 {
     "window": {
-        "width": 410,
+        "width": 510,
         "height": 200
     },
     "editor": {
@@ -54,9 +54,11 @@ Also you can change the default window dimensions by chaning settings.json - thi
 ```
 
 The user data folder is the following paths appended with a folder named "Simple Stand Up Picker":
-%APPDATA% on Windows
-$XDG_CONFIG_HOME or ~/.config on Linux
-~/Library/Application Support on macOS
+1. %APPDATA% on Windows
+2. $XDG_CONFIG_HOME or ~/.config on Linux
+3. ~/Library/Application Support/ on macOS
+Note: MacOS X Mountain Lion and Lion have hidden the Library folder. To show it in Finder, hold Option key and select Go > Library, or open Terminal and type:
+    chflags nohidden ~/Library
 
 ## Implemented with:
 ElectronJS and Pure Javascript 

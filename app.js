@@ -22,7 +22,7 @@ function init() {
         _getPersonIndex: function (d) {
             if (d.length == 0)
                 return -1;
-            var i = getRandomInt(d.length - 1);
+            var i = getRandomInt(d.length);
             return i;
         },
         _getNextPerson: function (d) {
@@ -36,17 +36,17 @@ function init() {
 
     //timer variables
     var individual = {
-        minutes: '00',
-        seconds: '00',
+        mVal: 0,
+        sVal: 0,
         appendMins: _elem("mins"),
-        appendSeconds: _elem("seconds")
+        appendSeconds: _elem("secs")
     };
 
     var total = {
-        minutes: '00',
-        seconds: '00',
+        mVal: 0,
+        sVal: 0,
         appendMins: _elem("tmins"),
-        appendSeconds: _elem("tseconds")
+        appendSeconds: _elem("tsecs")
     };
 
     //UI variables
@@ -63,7 +63,7 @@ function init() {
         pause: 'Pause',
         resume: 'Resume',
         almostdone: 'Are we done yet?',
-        luckylast: 'And lucky last is ',
+        luckylast: 'Lucky last! ',
         completed: 'Stand up is over',
         alldone: 'All Done!',
         whosnextstart: 'Who\'s next? <i>',
@@ -84,9 +84,20 @@ function init() {
             console.log(ppl);
             ppl.totalPersonCount = ppl.people.length;
             ppl.peopleRemaining = Array.from(ppl.people);
+            ppl.peopleRemaining = randomiseArray(ppl.peopleRemaining);
         } catch (err) {
             // handle your file not found (or other error) here
         }
+    }
+
+    function randomiseArray(array){
+        for(let i = array.length - 1; i > 0; i--){
+            const j = Math.floor(Math.random() * i)
+            const temp = array[i]
+            array[i] = array[j]
+            array[j] = temp
+          }
+        return array;
     }
 
     //Events
@@ -171,7 +182,7 @@ function init() {
                 ui.buttonNext.innerHTML = ui.next;
             }
         }
-        timer.interval = setInterval(timer.startTimer, 1000, individual);
+        startIndividualTimer();
 
 
         if (ppl.currentTurn == 1) {
@@ -179,15 +190,21 @@ function init() {
         } else {
             ppl.currentPerson = ppl.nextPerson;
         }
-        ppl.appendCurrent.innerHTML = ppl.currentPerson.name;
         if (ppl.currentTurn !== ppl.totalPersonCount) {
+            ppl.appendCurrent.innerHTML = (ppl.currentPerson.name.length > 35) ? ppl.currentPerson.name.substr(0,35) + '...': ppl.currentPerson.name;
             ppl.nextPerson = ppl._getNextPerson(ppl.peopleRemaining);
-            ppl.appendNext.innerHTML = ui.whosnextstart + ppl.nextPerson.name + ui.whosnextend;
+            let nextPerson = ppl.nextPerson.name.length > 51 ? ppl.nextPerson.name.substr(0,51) + '...': ppl.nextPerson.name;
+            ppl.appendNext.innerHTML = ui.whosnextstart + nextPerson + ui.whosnextend;
         } else {
+            ppl.appendCurrent.innerHTML = (ppl.currentPerson.name.length > 29) ? ppl.currentPerson.name.substr(0,29) + '...': ppl.currentPerson.name;
             ppl.appendNext.innerHTML = ui.space;
             ppl.nextPerson = '';
         }
 
+    }
+
+    function startIndividualTimer() {
+        timer.interval = setInterval(timer.startTimer, 1000, individual);
     }
 
     function startTotalTimer() {
@@ -206,21 +223,21 @@ function init() {
         interval: null,
         totalInterval: null,
         startTimer: function (obj) {
-            obj.seconds++;
+            obj.sVal++;
 
-            if (obj.seconds < 9) {
-                obj.appendSeconds.innerHTML = "0" + obj.seconds;
+            if (obj.sVal < 9) {
+                obj.appendSeconds.innerHTML = "0" + obj.sVal;
             }
 
-            if (obj.seconds > 9) {
-                obj.appendSeconds.innerHTML = obj.seconds;
+            if (obj.sVal > 9) {
+                obj.appendSeconds.innerHTML = obj.sVal;
             }
 
-            if (obj.seconds > 59) {
-                obj.minutes++;
-                obj.appendMins.innerHTML = obj.minutes;
-                obj.seconds = 0;
-                obj.appendSeconds.innerHTML = "0" + 0;
+            if (obj.sVal > 59) {
+                obj.mVal++;
+                obj.appendMins.innerHTML = obj.mVal;
+                obj.sVal = 0;
+                obj.appendSeconds.innerHTML = "00";
             }
         },
         stopTimer: function (i) {
@@ -231,10 +248,10 @@ function init() {
         },
         resetTimer: function (obj, i) {
             clearInterval(i);
-            obj.mins = "0";
-            obj.seconds = "00";
-            obj.appendMins.innerHTML = obj.mins;
-            obj.appendSeconds.innerHTML = obj.seconds;
+            obj.mVal = 0;
+            obj.sVal = 0;
+            obj.appendMins.innerHTML = obj.mVal;
+            obj.appendSeconds.innerHTML = obj.sVal;
         }
     }
 

@@ -3,7 +3,7 @@ Simple Stand Up Picker for cross platform (with ElectronJs) - MacOS pending test
 
 This is a simple stand up picker with character. Made to try out ElectronJS. If you like, please feel free to buy me a coffee or beer!
 
-Current version: V1.1.0 9:40 PM 27/02/2021
+Current version: V1.2.0 10:45 PM 23/03/2021
 
 ## How to use
 New: Configure list of people by changing people.json in the user data folder OR via the cogwheel icon to get to the people editor.
@@ -44,7 +44,11 @@ Also you can change the default window dimensions by chaning settings.json - thi
 {
     "window": {
         "width": 410,
-        "height": 150
+        "height": 200
+    },
+    "editor": {
+        "width": 600,
+        "height": 600
     }
 }
 ```
@@ -92,7 +96,7 @@ Supports dark and light modes in OS. This is done using:
 
 # Supported Platforms
 Tested in Windows 10. 
-Pending test on MacOS
+Tested on MacOS Big Sur
 
 Need help testing on Linux releases
 

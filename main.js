@@ -1,81 +1,42 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
-const isMac = process.platform === 'darwin'
-//https://www.electronjs.org/docs/api/menu
-const template = [
-  // { role: 'appMenu' }
-  ...(isMac ? [{
-    label: app.name,
-    submenu: [
-      { role: 'about' },
-      { type: 'separator' },
-      { role: 'services' },
-      { type: 'separator' },
-      { role: 'hide' },
-      { role: 'hideothers' },
-      { role: 'unhide' },
-      { type: 'separator' },
-      { role: 'quit' }
-    ]
-  }] : []),
-  // { role: 'fileMenu' }
-  {
-    label: 'File',
-    submenu: [
-      isMac ? { role: 'close' } : { role: 'quit' }
-      {
-        label: 'Help',
-        click: async () => {
-          const { shell } = require('electron')
-          await shell.openItem('/help/readme.txt')
-        }
-      }
-    ]
-  },
-  {
-    label: 'View',
-    submenu: [
-      // { role: 'reload' },
-      // { role: 'forceReload' },
-      // { role: 'toggleDevTools' },
-      // { type: 'separator' },
-      { role: 'resetZoom' },
-      { role: 'zoomIn' },
-      { role: 'zoomOut' },
-      // { type: 'separator' },
-      // { role: 'togglefullscreen' }
-    ]
-  },
-  // { role: 'windowMenu' }
-  // {
-  //   label: 'Window',
-  //   submenu: [
-  //     { role: 'minimize' },
-  //     { role: 'zoom' },
-  //     ...(isMac ? [
-  //       { type: 'separator' },
-  //       { role: 'front' },
-  //       { type: 'separator' },
-  //       { role: 'window' }
-  //     ] : [
-  //       { role: 'close' }
-  //     ])
-  //   ]
-  // },
-]
-
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
+const fs = require('fs')
 
 let mainWindow;
-
+let defaultSettings = require('./data/settings.json');
+let defaultPpl = require('./data/people.json');
 function createWindow() {
   var settings = {};
+  var ppl = [];
   try {
-    settings = require('./data/settings.json');
-    console.log(settings);
+    let configPath = path.join(app.getPath('userData'), 'settings.json');
+    console.log('Loading config from: ' + configPath);
+    if (!fileExists(configPath)) {
+      //create a default one.
+      settings = defaultSettings;
+      fs.writeFile(
+        configPath, 
+        JSON.stringify(settings), 
+        function(err) { if (err) console.error(err); }
+      );
+    } else {
+      settings = require(configPath);
+    }
+    var pplPath = path.join(app.getPath('userData'), 'people.json');
+    console.log('Loading people from:' + pplPath);
+    if (!fileExists(pplPath)) {
+      //create a default one.
+      ppl = defaultPpl;
+      fs.writeFile(
+        pplPath, 
+        JSON.stringify(ppl), 
+        function(err) { if (err) console.error(err); }
+      );
+    }
+
   } catch (err) {
     // handle your file not found (or other error) here
+    console.log(err);
   }
 
   mainWindow = new BrowserWindow({
@@ -87,11 +48,12 @@ function createWindow() {
       enableRemoteModule: true,
       nodeIntegration: true,
     },
-    titleBarStyle: "hidden",
-    frame: false
-  })
+    icon: __dirname + 'icon.ico',
+    titleBarStyle: 'hidden',
+    frame: false,
+  });
 
-  //win.removeMenu();
+  mainWindow.removeMenu();
   mainWindow.loadFile('index.html');
   mainWindow.setAlwaysOnTop(true, 1);
   mainWindow.on('closed', function () {
@@ -100,6 +62,18 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null
   });
+}
+
+function fileExists(path) {
+  let r = false;
+  try {
+    if (fs.existsSync(path)) {
+      return true;
+    }
+  } catch (err) {
+    console.error(err)
+  }
+  return r;
 }
 
 app.whenReady().then(createWindow)
@@ -115,3 +89,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
+

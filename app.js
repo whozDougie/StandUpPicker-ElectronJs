@@ -1,5 +1,14 @@
+const { settings } = require('cluster');
+const electron = require('electron');
+const path = require('path');
+const BrowserWindow = electron.remote.BrowserWindow;
+const isWin = process.platform === "win32";
+
 function init() {
     //people model
+    let pplPath = path.join(electron.remote.app.getPath('userData'), 'people.json');
+    let settingsPath = path.join(electron.remote.app.getPath('userData'), 'settings.json');
+    
     var ppl = {
         currentPerson: "",
         currentTurn: 0,
@@ -67,7 +76,11 @@ function init() {
     //initi logic
     function loadData() {
         try {
-            ppl.people = require('./data/people.json');
+            var alldata = require(pplPath);
+            ppl.people = Object.values(Object.fromEntries(
+                Object.entries(alldata)
+                .filter(([ key, val ]) => val.include !== false)
+              ));
             console.log(ppl);
             ppl.totalPersonCount = ppl.people.length;
             ppl.peopleRemaining = Array.from(ppl.people);
@@ -79,7 +92,10 @@ function init() {
     //Events
     ui.buttonNext.onclick = function () {
         if (!ui.scrumStarted)
+        {
+            loadData();
             startTotalTimer();
+        }
 
         ui.buttonPause.innerHTML = ui.pause;
         ui.pauseState = false;
@@ -122,6 +138,8 @@ function init() {
 
         ui.buttonNext.innerHTML = ui.next;
         ppl.appendNext.innerHTML = ui.space;
+
+        ui.scrumStarted = false;
     }
 
 
@@ -233,5 +251,39 @@ function init() {
         obj.style.display = 'block';
     }
 
-    loadData();
+
+    //editor
+    const button = _elem('editor');
+    button.addEventListener('click', () => {
+        createBrowserWindow();
+    });
+
+    function createBrowserWindow() {
+        var settings = require(settingsPath);
+        const remote = require('electron').remote;
+        const BrowserWindow = remote.BrowserWindow;
+        const win = new BrowserWindow({
+            height: settings.editor.height, //600
+            width: settings.editor.width, //500,
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js'),
+                enableRemoteModule: true,
+                nodeIntegration: true,
+            },
+            shadow: isWin,
+            titleBarStyle: 'hidden',
+            frame: false,
+        });
+
+        win.removeMenu();
+        win.loadFile('./editor/editor.html');
+        win.setAlwaysOnTop(true, 1);
+        win.on('closed', function () {
+            // Dereference the window object, usually you would store windows
+            // in an array if your app supports multi windows, this is the time
+            // when you should delete the corresponding element.
+            win = null
+        });
+        win.loadURL(__dirname + '/editor/editor.html');
+    }
 }
